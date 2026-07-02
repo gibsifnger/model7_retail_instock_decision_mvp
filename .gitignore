@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Database
+*.db
+*.sqlite
+
+# Models
+*.pkl
+*.joblib
+
+# Power BI temp
+*.tmp
+~$*
+
+# OS
+.DS_Store
+Thumbs.db
