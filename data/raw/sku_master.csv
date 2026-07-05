@@ -1,0 +1,41 @@
+﻿sku_id,sku_name,category_l1,category_l2,brand,default_vendor_id,launch_date,discontinue_date,unit_cost,list_price,gross_margin_rate,shelf_life_days,base_weekly_demand,demand_volatility_tier,moq_qty,order_multiple,min_order_amount,active_flag
+SKU0001,Mellow Dew Hydrating Toner,Beauty,Skincare,Mellow Dew,V006,2022-10-03,,18121.84,42900.0,0.5776,900,56,LOW,30,6,543655.2,1
+SKU0002,Pure Seoul Barrier Cream,Beauty,Skincare,Pure Seoul,V002,2023-01-20,,21276.26,47900.0,0.5558,900,62,MEDIUM,120,24,2553151.2,1
+SKU0003,Aurelia Vitamin Serum,Beauty,Skincare,Aurelia,V002,2023-07-30,,21182.09,48900.0,0.5668,730,118,LOW,36,6,762555.24,1
+SKU0004,Mellow Dew Daily Sunscreen,Beauty,Skincare,Mellow Dew,V006,2022-02-09,,5569.07,12900.0,0.5683,900,130,MEDIUM,72,12,400973.04,1
+SKU0005,Pure Seoul Repair Shampoo,Beauty,Haircare,Pure Seoul,V001,2024-07-27,,14242.87,31900.0,0.5535,900,147,MEDIUM,36,6,512743.32,1
+SKU0006,Aurelia Volume Conditioner,Beauty,Haircare,Aurelia,V002,2024-09-08,,8028.94,16900.0,0.5249,730,145,HIGH,24,6,192694.56,1
+SKU0007,Mellow Dew Scalp Treatment,Beauty,Haircare,Mellow Dew,V001,2022-11-17,,8038.75,12900.0,0.3768,730,107,MEDIUM,72,24,578790.0,1
+SKU0008,Pure Seoul Velvet Lip Tint,Beauty,Makeup,Pure Seoul,V001,2021-08-23,,24094.71,43900.0,0.4511,730,157,MEDIUM,24,6,578273.04,1
+SKU0009,Aurelia Glow Cushion,Beauty,Makeup,Aurelia,V001,2024-03-20,,17983.83,31900.0,0.4362,900,166,MEDIUM,144,24,2589671.52,1
+SKU0010,Mellow Dew Brow Pencil,Beauty,Makeup,Mellow Dew,V002,2024-03-09,,13488.05,19900.0,0.3222,1095,151,MEDIUM,36,6,485569.8,1
+SKU0011,Core Balance Daily Multivitamin,Health,Supplements,Core Balance,V003,2022-11-02,,19305.41,37900.0,0.4906,540,34,LOW,30,6,579162.3,1
+SKU0012,Wellnest Vitamin C Tablets,Health,Supplements,Wellnest,V007,2021-04-26,,17303.55,33900.0,0.4896,540,121,MEDIUM,120,24,2076426.0,1
+SKU0013,VitaRoot Omega Three Capsules,Health,Supplements,VitaRoot,V003,2022-03-20,,33470.66,49900.0,0.3292,365,71,LOW,24,6,803295.84,1
+SKU0014,Core Balance Probiotic Sachets,Health,Supplements,Core Balance,V007,2024-04-14,,32259.38,52900.0,0.3902,365,36,LOW,72,12,2322675.36,1
+SKU0015,Wellnest Cooling Body Patch,Health,Personal Care,Wellnest,V007,2023-03-25,,7072.81,15900.0,0.5552,540,149,MEDIUM,60,12,424368.6,1
+SKU0016,VitaRoot Hand Sanitizer,Health,Personal Care,VitaRoot,V007,2021-06-04,,12050.04,17900.0,0.3268,540,40,MEDIUM,72,24,867602.88,1
+SKU0017,Core Balance Dental Floss Set,Health,Personal Care,Core Balance,V007,2023-01-02,,34823.42,54900.0,0.3657,365,89,MEDIUM,48,24,1671524.16,1
+SKU0018,Wellnest Resistance Band,Health,Fitness,Wellnest,V003,2023-06-06,,12223.79,24900.0,0.5091,365,73,LOW,36,12,440056.44,1
+SKU0019,VitaRoot Foam Roller,Health,Fitness,VitaRoot,V003,2024-08-19,,13115.45,27900.0,0.5299,365,84,HIGH,72,12,944312.4,1
+SKU0020,Core Balance Protein Shaker,Health,Fitness,Core Balance,V003,2023-12-12,,25024.29,45900.0,0.4548,730,62,LOW,72,24,1801748.88,1
+SKU0021,Neat Day Multi Surface Cleaner,Home,Cleaning,Neat Day,V005,2021-10-23,,26410.76,44900.0,0.4118,1095,109,LOW,24,6,633858.24,1
+SKU0022,Home Harbor Laundry Detergent,Home,Cleaning,Home Harbor,V004,2023-08-27,,22233.32,47900.0,0.5358,1095,70,MEDIUM,48,24,1067199.36,1
+SKU0023,Green Habit Kitchen Cleaning Wipes,Home,Cleaning,Green Habit,V004,2021-05-04,,23265.3,41900.0,0.4447,730,107,MEDIUM,30,6,697959.0,1
+SKU0024,Neat Day Dishwasher Tablets,Home,Cleaning,Neat Day,V004,2021-09-13,,10967.75,16900.0,0.351,1825,86,LOW,30,6,329032.5,1
+SKU0025,Home Harbor Glass Storage Set,Home,Kitchen,Home Harbor,V004,2022-05-22,,16036.94,31900.0,0.4973,1095,55,HIGH,96,24,1539546.24,1
+SKU0026,Green Habit Silicone Utensil Set,Home,Kitchen,Green Habit,V005,2022-02-07,,32038.35,48900.0,0.3448,1825,76,MEDIUM,48,12,1537840.8,1
+SKU0027,Neat Day Reusable Food Bags,Home,Kitchen,Neat Day,V004,2022-11-23,,22136.58,36900.0,0.4001,1825,125,MEDIUM,24,6,531277.92,1
+SKU0028,Home Harbor Cotton Pillowcase Set,Home,Bedding,Home Harbor,V004,2021-01-15,,4710.03,10900.0,0.5679,1095,119,LOW,36,12,169561.08,1
+SKU0029,Green Habit Cooling Blanket,Home,Bedding,Green Habit,V005,2023-09-09,,25552.52,42900.0,0.4044,1825,50,MEDIUM,12,6,306630.24,1
+SKU0030,Neat Day Mattress Protector,Home,Bedding,Neat Day,V004,2024-11-24,,6037.43,14900.0,0.5948,1095,49,LOW,72,24,434694.96,1
+SKU0031,Paper Grove Packing Cube Set,Lifestyle,Travel,Paper Grove,V005,2024-04-26,,10894.36,24900.0,0.5625,1825,106,HIGH,36,12,392196.96,1
+SKU0032,Urban Trail Travel Bottle Kit,Lifestyle,Travel,Urban Trail,V008,2024-12-18,,21655.26,35900.0,0.3968,1095,104,LOW,30,6,649657.8,1
+SKU0033,Roamly Foldable Neck Pillow,Lifestyle,Travel,Roamly,V009,2024-12-19,,24296.06,58900.0,0.5875,1095,28,HIGH,24,6,583105.44,1
+SKU0034,Paper Grove Weekly Planner,Lifestyle,Stationery,Paper Grove,V008,2021-02-02,,21009.44,35900.0,0.4148,1825,89,MEDIUM,48,24,1008453.12,1
+SKU0035,Urban Trail Gel Pen Set,Lifestyle,Stationery,Urban Trail,V009,2023-12-27,,28199.18,46900.0,0.3987,1095,20,LOW,48,24,1353560.64,1
+SKU0036,Roamly Desk Organizer,Lifestyle,Stationery,Roamly,V009,2023-12-27,,32905.36,51900.0,0.366,3650,36,MEDIUM,12,6,394864.32,1
+SKU0037,Paper Grove Insulated Tumbler,Lifestyle,Outdoor,Paper Grove,V009,2022-03-30,,10678.01,23900.0,0.5532,1825,48,MEDIUM,12,6,128136.12,1
+SKU0038,Urban Trail Compact Picnic Mat,Lifestyle,Outdoor,Urban Trail,V009,2022-02-12,,6049.92,9900.0,0.3889,1095,31,MEDIUM,36,6,217797.12,1
+SKU0039,Roamly Portable Lantern,Lifestyle,Outdoor,Roamly,V005,2023-10-11,,28772.34,56900.0,0.4943,1095,57,HIGH,24,6,690536.16,1
+SKU0040,Paper Grove Lightweight Daypack,Lifestyle,Outdoor,Paper Grove,V005,2022-09-26,,30048.02,46900.0,0.3593,1825,31,HIGH,48,24,1442304.96,1

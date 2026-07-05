@@ -1,0 +1,11 @@
+﻿vendor_id,vendor_name,vendor_country,import_flag,standard_lead_time_days,order_cycle_days,payment_terms,supply_region,reliability_tier,lead_time_profile,fill_rate_profile,vendor_active_flag
+V001,Seoul Beauty Labs,South Korea,0,7,7,NET30,Domestic,HIGH,STABLE,HIGH,1
+V002,Han River Cosmetics,South Korea,0,10,7,NET30,Domestic,MEDIUM,MODERATE,MEDIUM,1
+V003,Korea Wellness Co,South Korea,0,8,7,NET30,Domestic,HIGH,STABLE,HIGH,1
+V004,Busan Home Supply,South Korea,0,12,14,NET45,Domestic,MEDIUM,MODERATE,MEDIUM,1
+V005,Incheon Living Goods,South Korea,0,6,7,NET30,Domestic,HIGH,STABLE,HIGH,1
+V006,Sakura Trading,Japan,1,28,14,NET45,East Asia,MEDIUM,VARIABLE,MEDIUM,1
+V007,Pacific Health Imports,United States,1,42,28,NET60,North America,LOW,HIGH_VARIANCE,LOW,1
+V008,Nordic Lifestyle AB,Sweden,1,35,28,NET60,Europe,MEDIUM,VARIABLE,MEDIUM,1
+V009,Shenzhen Smart Living,China,1,24,14,NET45,East Asia,MEDIUM,VARIABLE,HIGH,1
+V010,Green Home Partners,South Korea,0,9,7,NET30,Domestic,LOW,HIGH_VARIANCE,LOW,1
