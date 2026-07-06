@@ -1,0 +1,31 @@
+kpi_group,kpi_name,kpi_value,description
+Demand Forecast,model_wape,0.3289004835364059,WAPE of demand forecast model
+Demand Forecast,baseline_wape,0.3628129117259552,WAPE of sales rolling mean 4-week baseline
+Demand Forecast,wape_improvement_pp,3.3912428189549315,WAPE improvement of model versus baseline in percentage points
+Demand Forecast,model_bias,-0.005826888474444,Bias of demand forecast model
+Demand Forecast,baseline_bias,-0.1016333410834689,Bias of sales rolling mean 4-week baseline
+Demand Forecast,model_forecast_accuracy,0.6710995164635941,"Forecast Accuracy of demand forecast model, defined as 1 - WAPE"
+Demand Forecast,baseline_forecast_accuracy,0.6371870882740448,"Forecast Accuracy of baseline, defined as 1 - WAPE"
+Stockout Risk,model_precision,0.7006802721088435,Precision of stockout risk classifier at threshold 0.4
+Stockout Risk,model_recall,0.7463768115942029,Recall of stockout risk classifier at threshold 0.4
+Stockout Risk,model_f1,0.7228070175438597,F1 score of stockout risk classifier at threshold 0.4
+Stockout Risk,model_pr_auc,0.8219629790936701,PR-AUC of stockout risk classifier
+Stockout Risk,model_roc_auc,0.9841356673960612,ROC-AUC of stockout risk classifier
+Stockout Risk,baseline_precision,0.2809917355371901,Precision of inventory cover stockout rule baseline
+Stockout Risk,baseline_recall,0.4927536231884058,Recall of inventory cover stockout rule baseline
+Stockout Risk,baseline_f1,0.3578947368421052,F1 score of inventory cover stockout rule baseline
+Stockout Risk,baseline_pr_auc,0.1627652513275043,PR-AUC of inventory cover stockout rule baseline
+Stockout Risk,false_negative_model,35.0,False negatives of stockout risk classifier at threshold 0.4
+Stockout Risk,false_negative_baseline,70.0,False negatives of inventory cover stockout rule baseline
+Reorder Decision,total_decision_rows,2520.0,Total number of SKU-channel-center-week decision rows
+Reorder Decision,total_recommended_order_qty,5454.0,Total recommended order quantity across all decisions
+Reorder Decision,buy_count,50.0,Number of BUY recommendations
+Reorder Decision,hold_count,1650.0,Number of HOLD recommendations
+Reorder Decision,expedite_count,24.0,Number of EXPEDITE recommendations
+Reorder Decision,reduce_count,796.0,Number of REDUCE recommendations
+Reorder Decision,buy_ratio,0.01984126984126984,Share of BUY recommendations
+Reorder Decision,hold_ratio,0.6547619047619048,Share of HOLD recommendations
+Reorder Decision,expedite_ratio,0.009523809523809525,Share of EXPEDITE recommendations
+Reorder Decision,reduce_ratio,0.31587301587301586,Share of REDUCE recommendations
+Reorder Decision,avg_recommended_order_qty,2.164285714285714,Average recommended order quantity across all decisions
+Reorder Decision,max_recommended_order_qty,168.0,Maximum recommended order quantity across all decisions
