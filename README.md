@@ -158,3 +158,17 @@ python src/reporting/export_powerbi_dataset.py
 | Modeling | scikit-learn |
 | Reporting | CSV Export, Power BI Dataset |
 | Orchestration | Python subprocess |
+
+## Power BI Dashboard
+
+### 1. Executive Overview
+![Executive Overview](powerbi/dashboard_screenshots/01_executive_overview.png)
+
+### 2. Demand Forecast Performance
+![Demand Forecast Performance](powerbi/dashboard_screenshots/02_demand_forecast_performance.png)
+
+### 3. Stockout Risk Monitoring
+![Stockout Risk Monitoring](powerbi/dashboard_screenshots/03_stockout_risk_monitoring.png)
+
+### 4. Reorder Action Control Tower
+![Reorder Action Control Tower](powerbi/dashboard_screenshots/04_reorder_action_control_tower.png)
