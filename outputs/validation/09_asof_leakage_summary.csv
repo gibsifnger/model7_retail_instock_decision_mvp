@@ -1,0 +1,17 @@
+﻿metric,value
+oms_order_rows,18129.0
+oms_orders_after_monday_08_cutoff,18129.0
+oms_orders_before_or_at_cutoff,0.0
+oms_after_cutoff_ratio,1.0
+inventory_snapshot_rows,6240.0
+inventory_snapshots_exactly_monday_08,6240.0
+inventory_snapshots_not_at_monday_08,0.0
+partial_fulfillment_only_rows,3449.0
+stockout_only_rows,409.0
+partial_and_stockout_rows,818.0
+approved_override_rows,11.0
+override_created_after_effective_cutoff,0.0
+nonzero_rows__observed_sales_qty,16741.0
+nonzero_rows__demand_gap_qty,4267.0
+nonzero_rows__sales_censored_flag,4676.0
+nonzero_rows__stockout_adjusted_sales,18129.0

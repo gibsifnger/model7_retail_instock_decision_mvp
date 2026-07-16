@@ -1,0 +1,9 @@
+﻿scenario,original_conflict_events,resolved_original_conflicts,remaining_original_conflicts,new_conflicts_created,mean_range_on_original_conflicts
+original,21,0,21,0,0.5074304939924601
+channel_id_fixed_only,21,4,17,10,0.5329999238368751
+inventory_derived_equalized,21,0,21,1,0.5028576453091497
+current_week_realized_equalized,21,14,7,0,0.14582585715423085
+demand_history_equalized,21,0,21,1,0.47401411628321555
+inventory_and_current_week_equalized,21,14,7,1,0.1534980849251481
+all_varying_numeric_equalized_keep_channel,21,13,8,5,0.1965343744518835
+all_channel_variation_equalized,21,21,0,0,0.0

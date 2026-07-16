@@ -1,0 +1,11 @@
+﻿feature,conflict_variation_rate,nonconflict_variation_rate,variation_rate_difference,mean_probability_range_when_varied
+category_l1,0.0,0.0,0.0,
+category_l2,0.0,0.0,0.0,
+brand,0.0,0.0,0.0,
+default_vendor_id,0.0,0.0,0.0,
+promo_type,0.0,0.0,0.0,
+vendor_country,0.0,0.0,0.0,
+import_flag,0.0,0.0,0.0,
+reliability_tier,0.0,0.0,0.0,
+lead_time_profile,0.0,0.0,0.0,
+fill_rate_profile,0.0,0.0,0.0,

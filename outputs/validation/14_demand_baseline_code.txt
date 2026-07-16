@@ -1,0 +1,302 @@
+﻿
+  src\models\train_demand_forecast_model.py:18:import matplotlib.pyplot as plt  # noqa: E402
+  src\models\train_demand_forecast_model.py:19:
+  src\models\train_demand_forecast_model.py:20:
+  src\models\train_demand_forecast_model.py:21:RANDOM_SEED = 42
+  src\models\train_demand_forecast_model.py:22:TEST_WEEKS = 8
+  src\models\train_demand_forecast_model.py:23:
+  src\models\train_demand_forecast_model.py:24:REPO_ROOT = Path(__file__).resolve().parents[2]
+  src\models\train_demand_forecast_model.py:25:INPUT_PATH = REPO_ROOT / "data" / "mart" / "final_modeling_table.csv"
+> src\models\train_demand_forecast_model.py:26:PREDICTION_PATH = (
+> src\models\train_demand_forecast_model.py:27:    REPO_ROOT / "outputs" / "predictions" / "demand_forecast_result.csv"
+  src\models\train_demand_forecast_model.py:28:)
+  src\models\train_demand_forecast_model.py:29:METRICS_PATH = REPO_ROOT / "outputs" / "metrics" / "demand_model_metrics.csv"
+  src\models\train_demand_forecast_model.py:30:IMPORTANCE_PATH = (
+  src\models\train_demand_forecast_model.py:31:    REPO_ROOT / "outputs" / "figures" / "feature_importance_demand.png"
+  src\models\train_demand_forecast_model.py:32:)
+  src\models\train_demand_forecast_model.py:33:
+  src\models\train_demand_forecast_model.py:34:TARGET_COLUMN = "target_demand_next_1w"
+  src\models\train_demand_forecast_model.py:35:KEY_COLUMNS = ["sku_id", "channel_id", "center_id", "week_start_date"]
+  src\models\train_demand_forecast_model.py:36:
+  src\models\train_demand_forecast_model.py:37:NUMERIC_FEATURES = [
+  src\models\train_demand_forecast_model.py:38:    "observed_sales_qty",
+  src\models\train_demand_forecast_model.py:39:    "demand_gap_qty",
+  src\models\train_demand_forecast_model.py:40:    "sales_censored_flag",
+  src\models\train_demand_forecast_model.py:41:    "stockout_adjusted_sales",
+  src\models\train_demand_forecast_model.py:42:    "sales_lag_1w",
+  src\models\train_demand_forecast_model.py:43:    "sales_lag_4w",
+> src\models\train_demand_forecast_model.py:44:    "sales_rolling_mean_4w",
+  src\models\train_demand_forecast_model.py:45:    "sales_rolling_std_4w",
+  src\models\train_demand_forecast_model.py:46:    "demand_volatility_index",
+> src\models\train_demand_forecast_model.py:47:    "stockout_adjusted_sales_rolling_mean_4w",
+  src\models\train_demand_forecast_model.py:48:    "stockout_days_last_4w",
+  src\models\train_demand_forecast_model.py:49:    "in_stock_rate_4w",
+  src\models\train_demand_forecast_model.py:50:    "sales_history_weeks",
+  src\models\train_demand_forecast_model.py:51:    "promo_flag",
+  src\models\train_demand_forecast_model.py:52:    "promo_depth",
+  src\models\train_demand_forecast_model.py:53:    "promo_duration_days",
+  src\models\train_demand_forecast_model.py:54:    "promo_days_in_week",
+  src\models\train_demand_forecast_model.py:55:    "promo_day_index",
+  src\models\train_demand_forecast_model.py:56:    "historical_promo_uplift",
+  src\models\train_demand_forecast_model.py:57:    "available_qty",
+  src\models\train_demand_forecast_model.py:58:    "reserved_qty",
+  src\models\train_demand_forecast_model.py:59:    "inbound_qty_next_1w",
+  src\models\train_demand_forecast_model.py:60:    "inbound_qty_next_2w",
+  src\models\train_demand_forecast_model.py:61:    "inbound_qty_next_4w",
+  src\models\train_demand_forecast_model.py:62:    "inventory_position_qty",
+  src\models\train_demand_forecast_model.py:63:    "inventory_cover_weeks",
+  src\models\train_demand_forecast_model.py:64:    "safety_stock_qty",
+  src\models\train_demand_forecast_model.py:65:    "standard_lead_time_days",
+  src\models\train_demand_forecast_model.py:66:    "vendor_avg_lead_time",
+  src\models\train_demand_forecast_model.py:67:    "vendor_lead_time_std",
+  src\models\train_demand_forecast_model.py:68:    "po_fill_rate",
+  src\models\train_demand_forecast_model.py:69:    "on_time_delivery_rate",
+  src\models\train_demand_forecast_model.py:70:    "open_po_qty",
+  src\models\train_demand_forecast_model.py:71:    "overdue_po_qty",
+  src\models\train_demand_forecast_model.py:72:    "moq_qty",
+  src\models\train_demand_forecast_model.py:93:    "vendor_country",
+  src\models\train_demand_forecast_model.py:94:    "import_flag",
+  src\models\train_demand_forecast_model.py:95:    "reliability_tier",
+  src\models\train_demand_forecast_model.py:96:    "lead_time_profile",
+  src\models\train_demand_forecast_model.py:97:    "fill_rate_profile",
+  src\models\train_demand_forecast_model.py:98:]
+  src\models\train_demand_forecast_model.py:99:
+  src\models\train_demand_forecast_model.py:100:MODEL_NAME = "HistGradientBoostingRegressor"
+> src\models\train_demand_forecast_model.py:101:BASELINE_NAME = "sales_rolling_mean_4w_baseline"
+  src\models\train_demand_forecast_model.py:102:
+  src\models\train_demand_forecast_model.py:103:
+  src\models\train_demand_forecast_model.py:104:def load_modeling_table() -> pd.DataFrame:
+  src\models\train_demand_forecast_model.py:105:    """Load the feature table and validate the explicit modeling contract."""
+  src\models\train_demand_forecast_model.py:106:    if not INPUT_PATH.is_file():
+  src\models\train_demand_forecast_model.py:107:        raise FileNotFoundError(
+  src\models\train_demand_forecast_model.py:108:            f"Modeling table not found: {INPUT_PATH}\n"
+  src\models\train_demand_forecast_model.py:109:            "Run src/features/build_final_feature_table.py first."
+  src\models\train_demand_forecast_model.py:110:        )
+  src\models\train_demand_forecast_model.py:111:
+  src\models\train_demand_forecast_model.py:112:    data = pd.read_csv(INPUT_PATH)
+  src\models\train_demand_forecast_model.py:113:    required_columns = set(
+  src\models\train_demand_forecast_model.py:114:        KEY_COLUMNS
+  src\models\train_demand_forecast_model.py:115:        + NUMERIC_FEATURES
+  src\models\train_demand_forecast_model.py:116:        + CATEGORICAL_FEATURES
+  src\models\train_demand_forecast_model.py:117:        + [TARGET_COLUMN, "stockout_flag"]
+  src\models\train_demand_forecast_model.py:118:    )
+  src\models\train_demand_forecast_model.py:119:    missing_columns = sorted(required_columns.difference(data.columns))
+  src\models\train_demand_forecast_model.py:120:    if missing_columns:
+  src\models\train_demand_forecast_model.py:121:        raise ValueError(
+  src\models\train_demand_forecast_model.py:122:            "Modeling table is missing required columns: "
+  src\models\train_demand_forecast_model.py:123:            + ", ".join(missing_columns)
+  src\models\train_demand_forecast_model.py:124:        )
+  src\models\train_demand_forecast_model.py:125:
+  src\models\train_demand_forecast_model.py:126:    data["week_start_date"] = pd.to_datetime(
+  src\models\train_demand_forecast_model.py:201:        max_iter=250,
+  src\models\train_demand_forecast_model.py:202:        max_leaf_nodes=31,
+  src\models\train_demand_forecast_model.py:203:        l2_regularization=1.0,
+  src\models\train_demand_forecast_model.py:204:        random_state=RANDOM_SEED,
+  src\models\train_demand_forecast_model.py:205:    )
+  src\models\train_demand_forecast_model.py:206:    return Pipeline(steps=[("preprocessor", preprocessor), ("model", model)])
+  src\models\train_demand_forecast_model.py:207:
+  src\models\train_demand_forecast_model.py:208:
+> src\models\train_demand_forecast_model.py:209:def calculate_metrics(actual: np.ndarray, prediction: np.ndarray) -> dict[str, float]:
+  src\models\train_demand_forecast_model.py:210:    """Calculate the five required aggregate demand forecast metrics."""
+  src\models\train_demand_forecast_model.py:211:    actual = np.asarray(actual, dtype=float)
+> src\models\train_demand_forecast_model.py:212:    prediction = np.asarray(prediction, dtype=float)
+> src\models\train_demand_forecast_model.py:213:    error = prediction - actual
+  src\models\train_demand_forecast_model.py:214:    absolute_error = np.abs(error)
+  src\models\train_demand_forecast_model.py:215:    actual_sum = actual.sum()
+  src\models\train_demand_forecast_model.py:216:
+  src\models\train_demand_forecast_model.py:217:    mae = float(absolute_error.mean())
+  src\models\train_demand_forecast_model.py:218:    rmse = float(np.sqrt(np.mean(np.square(error))))
+  src\models\train_demand_forecast_model.py:219:    if actual_sum == 0:
+  src\models\train_demand_forecast_model.py:220:        wape = np.nan
+  src\models\train_demand_forecast_model.py:221:        bias = np.nan
+  src\models\train_demand_forecast_model.py:222:        forecast_accuracy = np.nan
+  src\models\train_demand_forecast_model.py:223:    else:
+  src\models\train_demand_forecast_model.py:224:        wape = float(absolute_error.sum() / actual_sum)
+  src\models\train_demand_forecast_model.py:225:        bias = float(error.sum() / actual_sum)
+  src\models\train_demand_forecast_model.py:226:        forecast_accuracy = float(1.0 - wape)
+  src\models\train_demand_forecast_model.py:227:
+  src\models\train_demand_forecast_model.py:228:    return {
+  src\models\train_demand_forecast_model.py:229:        "mae": mae,
+  src\models\train_demand_forecast_model.py:230:        "rmse": rmse,
+  src\models\train_demand_forecast_model.py:231:        "wape": wape,
+  src\models\train_demand_forecast_model.py:232:        "bias": bias,
+  src\models\train_demand_forecast_model.py:233:        "forecast_accuracy": forecast_accuracy,
+  src\models\train_demand_forecast_model.py:234:    }
+  src\models\train_demand_forecast_model.py:235:
+  src\models\train_demand_forecast_model.py:236:
+  src\models\train_demand_forecast_model.py:237:def build_metrics_table(
+  src\models\train_demand_forecast_model.py:238:    model_metrics: dict[str, float],
+> src\models\train_demand_forecast_model.py:239:    baseline_metrics: dict[str, float],
+  src\models\train_demand_forecast_model.py:240:    train_data: pd.DataFrame,
+  src\models\train_demand_forecast_model.py:241:    test_data: pd.DataFrame,
+  src\models\train_demand_forecast_model.py:242:) -> pd.DataFrame:
+> src\models\train_demand_forecast_model.py:243:    """Create comparable model and baseline metric rows."""
+  src\models\train_demand_forecast_model.py:244:    metadata = {
+  src\models\train_demand_forecast_model.py:245:        "split": "time_based_test_last_8_weeks",
+  src\models\train_demand_forecast_model.py:246:        "train_rows": len(train_data),
+  src\models\train_demand_forecast_model.py:247:        "test_rows": len(test_data),
+  src\models\train_demand_forecast_model.py:248:        "train_week_min": train_data["week_start_date"].min().strftime("%Y-%m-%d"),
+  src\models\train_demand_forecast_model.py:249:        "train_week_max": train_data["week_start_date"].max().strftime("%Y-%m-%d"),
+  src\models\train_demand_forecast_model.py:250:        "test_week_min": test_data["week_start_date"].min().strftime("%Y-%m-%d"),
+  src\models\train_demand_forecast_model.py:251:        "test_week_max": test_data["week_start_date"].max().strftime("%Y-%m-%d"),
+  src\models\train_demand_forecast_model.py:252:    }
+  src\models\train_demand_forecast_model.py:253:    rows = [
+  src\models\train_demand_forecast_model.py:254:        {"model_name": MODEL_NAME, **metadata, **model_metrics},
+> src\models\train_demand_forecast_model.py:255:        {"model_name": BASELINE_NAME, **metadata, **baseline_metrics},
+  src\models\train_demand_forecast_model.py:256:    ]
+  src\models\train_demand_forecast_model.py:257:    column_order = [
+  src\models\train_demand_forecast_model.py:258:        "model_name",
+  src\models\train_demand_forecast_model.py:259:        "split",
+  src\models\train_demand_forecast_model.py:260:        "mae",
+  src\models\train_demand_forecast_model.py:261:        "rmse",
+  src\models\train_demand_forecast_model.py:262:        "wape",
+  src\models\train_demand_forecast_model.py:263:        "bias",
+  src\models\train_demand_forecast_model.py:264:        "forecast_accuracy",
+  src\models\train_demand_forecast_model.py:265:        "train_rows",
+  src\models\train_demand_forecast_model.py:266:        "test_rows",
+  src\models\train_demand_forecast_model.py:267:        "train_week_min",
+  src\models\train_demand_forecast_model.py:268:        "train_week_max",
+  src\models\train_demand_forecast_model.py:269:        "test_week_min",
+  src\models\train_demand_forecast_model.py:270:        "test_week_max",
+  src\models\train_demand_forecast_model.py:271:    ]
+  src\models\train_demand_forecast_model.py:272:    return pd.DataFrame(rows)[column_order]
+  src\models\train_demand_forecast_model.py:273:
+  src\models\train_demand_forecast_model.py:274:
+> src\models\train_demand_forecast_model.py:275:def build_prediction_output(
+  src\models\train_demand_forecast_model.py:276:    test_data: pd.DataFrame,
+> src\models\train_demand_forecast_model.py:277:    baseline_prediction: np.ndarray,
+> src\models\train_demand_forecast_model.py:278:    model_prediction: np.ndarray,
+  src\models\train_demand_forecast_model.py:279:) -> pd.DataFrame:
+> src\models\train_demand_forecast_model.py:280:    """Create the requested grain-level test prediction output."""
+  src\models\train_demand_forecast_model.py:281:    output_columns = KEY_COLUMNS + [
+  src\models\train_demand_forecast_model.py:282:        TARGET_COLUMN,
+  src\models\train_demand_forecast_model.py:283:        "promo_flag",
+  src\models\train_demand_forecast_model.py:284:        "stockout_flag",
+  src\models\train_demand_forecast_model.py:285:        "inventory_cover_weeks",
+  src\models\train_demand_forecast_model.py:286:    ]
+  src\models\train_demand_forecast_model.py:287:    result = test_data[output_columns].copy()
+> src\models\train_demand_forecast_model.py:288:    result["baseline_pred"] = baseline_prediction
+> src\models\train_demand_forecast_model.py:289:    result["demand_pred"] = model_prediction
+  src\models\train_demand_forecast_model.py:290:    result["error"] = result["demand_pred"] - result[TARGET_COLUMN]
+  src\models\train_demand_forecast_model.py:291:    result["abs_error"] = result["error"].abs()
+  src\models\train_demand_forecast_model.py:292:    result["ape"] = safe_ape(
+  src\models\train_demand_forecast_model.py:293:        result[TARGET_COLUMN].to_numpy(dtype=float),
+  src\models\train_demand_forecast_model.py:294:        result["abs_error"].to_numpy(dtype=float),
+  src\models\train_demand_forecast_model.py:295:    )
+  src\models\train_demand_forecast_model.py:296:    result["week_start_date"] = result["week_start_date"].dt.strftime("%Y-%m-%d")
+  src\models\train_demand_forecast_model.py:297:
+  src\models\train_demand_forecast_model.py:298:    requested_order = [
+  src\models\train_demand_forecast_model.py:299:        "sku_id",
+  src\models\train_demand_forecast_model.py:300:        "channel_id",
+  src\models\train_demand_forecast_model.py:301:        "center_id",
+  src\models\train_demand_forecast_model.py:302:        "week_start_date",
+  src\models\train_demand_forecast_model.py:303:        TARGET_COLUMN,
+> src\models\train_demand_forecast_model.py:304:        "baseline_pred",
+  src\models\train_demand_forecast_model.py:305:        "demand_pred",
+  src\models\train_demand_forecast_model.py:306:        "abs_error",
+  src\models\train_demand_forecast_model.py:307:        "ape",
+  src\models\train_demand_forecast_model.py:308:        "error",
+  src\models\train_demand_forecast_model.py:309:        "promo_flag",
+  src\models\train_demand_forecast_model.py:310:        "stockout_flag",
+  src\models\train_demand_forecast_model.py:311:        "inventory_cover_weeks",
+  src\models\train_demand_forecast_model.py:312:    ]
+  src\models\train_demand_forecast_model.py:313:    return result[requested_order]
+  src\models\train_demand_forecast_model.py:314:
+  src\models\train_demand_forecast_model.py:315:
+  src\models\train_demand_forecast_model.py:316:def safe_ape(actual: np.ndarray, absolute_error: np.ndarray) -> np.ndarray:
+  src\models\train_demand_forecast_model.py:317:    """Calculate row APE while leaving zero-actual rows as NaN."""
+  src\models\train_demand_forecast_model.py:318:    result = np.full(len(actual), np.nan, dtype=float)
+  src\models\train_demand_forecast_model.py:319:    nonzero_actual = actual != 0
+  src\models\train_demand_forecast_model.py:320:    np.divide(
+  src\models\train_demand_forecast_model.py:321:        absolute_error,
+  src\models\train_demand_forecast_model.py:322:        np.abs(actual),
+  src\models\train_demand_forecast_model.py:323:        out=result,
+  src\models\train_demand_forecast_model.py:324:        where=nonzero_actual,
+  src\models\train_demand_forecast_model.py:325:    )
+  src\models\train_demand_forecast_model.py:326:    return result
+  src\models\train_demand_forecast_model.py:327:
+  src\models\train_demand_forecast_model.py:328:
+  src\models\train_demand_forecast_model.py:329:def save_feature_importance(
+  src\models\train_demand_forecast_model.py:360:    figure.savefig(IMPORTANCE_PATH, dpi=150, bbox_inches="tight")
+  src\models\train_demand_forecast_model.py:361:    plt.close(figure)
+  src\models\train_demand_forecast_model.py:362:
+  src\models\train_demand_forecast_model.py:363:    return importance_table
+  src\models\train_demand_forecast_model.py:364:
+  src\models\train_demand_forecast_model.py:365:
+  src\models\train_demand_forecast_model.py:366:def ensure_output_directories() -> None:
+  src\models\train_demand_forecast_model.py:367:    """Create all requested output directories if they do not exist."""
+> src\models\train_demand_forecast_model.py:368:    for path in [PREDICTION_PATH, METRICS_PATH, IMPORTANCE_PATH]:
+  src\models\train_demand_forecast_model.py:369:        path.parent.mkdir(parents=True, exist_ok=True)
+  src\models\train_demand_forecast_model.py:370:
+  src\models\train_demand_forecast_model.py:371:
+  src\models\train_demand_forecast_model.py:372:def main() -> None:
+> src\models\train_demand_forecast_model.py:373:    """Train the demand model, compare the baseline, and save outputs."""
+  src\models\train_demand_forecast_model.py:374:    data = load_modeling_table()
+  src\models\train_demand_forecast_model.py:375:    train_data, test_data, _ = time_based_split(data)
+  src\models\train_demand_forecast_model.py:376:    feature_columns = NUMERIC_FEATURES + CATEGORICAL_FEATURES
+  src\models\train_demand_forecast_model.py:377:
+  src\models\train_demand_forecast_model.py:378:    train_features = train_data[feature_columns]
+  src\models\train_demand_forecast_model.py:379:    train_target = train_data[TARGET_COLUMN]
+  src\models\train_demand_forecast_model.py:380:    test_features = test_data[feature_columns]
+  src\models\train_demand_forecast_model.py:381:    test_target = test_data[TARGET_COLUMN]
+  src\models\train_demand_forecast_model.py:382:
+  src\models\train_demand_forecast_model.py:383:    print(f"Train rows: {len(train_data)}")
+  src\models\train_demand_forecast_model.py:384:    print(
+  src\models\train_demand_forecast_model.py:385:        "Train week range: "
+  src\models\train_demand_forecast_model.py:386:        f"{train_data['week_start_date'].min():%Y-%m-%d} to "
+  src\models\train_demand_forecast_model.py:387:        f"{train_data['week_start_date'].max():%Y-%m-%d}"
+  src\models\train_demand_forecast_model.py:388:    )
+  src\models\train_demand_forecast_model.py:389:    print(f"Test rows: {len(test_data)}")
+  src\models\train_demand_forecast_model.py:390:    print(
+  src\models\train_demand_forecast_model.py:391:        "Test week range: "
+  src\models\train_demand_forecast_model.py:392:        f"{test_data['week_start_date'].min():%Y-%m-%d} to "
+  src\models\train_demand_forecast_model.py:393:        f"{test_data['week_start_date'].max():%Y-%m-%d}"
+  src\models\train_demand_forecast_model.py:394:    )
+  src\models\train_demand_forecast_model.py:395:
+  src\models\train_demand_forecast_model.py:396:    pipeline = build_model_pipeline()
+  src\models\train_demand_forecast_model.py:397:    pipeline.fit(train_features, train_target)
+> src\models\train_demand_forecast_model.py:398:    model_prediction = np.clip(pipeline.predict(test_features), a_min=0, a_max=None)
+  src\models\train_demand_forecast_model.py:399:
+> src\models\train_demand_forecast_model.py:400:    baseline_fallback = float(train_target.median())
+> src\models\train_demand_forecast_model.py:401:    baseline_prediction = (
+> src\models\train_demand_forecast_model.py:402:        pd.to_numeric(test_data["sales_rolling_mean_4w"], errors="coerce")
+> src\models\train_demand_forecast_model.py:403:        .fillna(baseline_fallback)
+  src\models\train_demand_forecast_model.py:404:        .clip(lower=0)
+  src\models\train_demand_forecast_model.py:405:        .to_numpy(dtype=float)
+  src\models\train_demand_forecast_model.py:406:    )
+  src\models\train_demand_forecast_model.py:407:
+> src\models\train_demand_forecast_model.py:408:    model_metrics = calculate_metrics(test_target.to_numpy(), model_prediction)
+> src\models\train_demand_forecast_model.py:409:    baseline_metrics = calculate_metrics(test_target.to_numpy(), baseline_prediction)
+  src\models\train_demand_forecast_model.py:410:    metrics_table = build_metrics_table(
+> src\models\train_demand_forecast_model.py:411:        model_metrics, baseline_metrics, train_data, test_data
+  src\models\train_demand_forecast_model.py:412:    )
+> src\models\train_demand_forecast_model.py:413:    prediction_output = build_prediction_output(
+> src\models\train_demand_forecast_model.py:414:        test_data, baseline_prediction, model_prediction
+  src\models\train_demand_forecast_model.py:415:    )
+  src\models\train_demand_forecast_model.py:416:
+  src\models\train_demand_forecast_model.py:417:    ensure_output_directories()
+> src\models\train_demand_forecast_model.py:418:    prediction_output.to_csv(PREDICTION_PATH, index=False, encoding="utf-8")
+  src\models\train_demand_forecast_model.py:419:    metrics_table.to_csv(METRICS_PATH, index=False, encoding="utf-8")
+  src\models\train_demand_forecast_model.py:420:    save_feature_importance(pipeline, test_features, test_target)
+  src\models\train_demand_forecast_model.py:421:
+  src\models\train_demand_forecast_model.py:422:    for row in metrics_table.itertuples(index=False):
+  src\models\train_demand_forecast_model.py:423:        print(
+  src\models\train_demand_forecast_model.py:424:            f"{row.model_name}: "
+  src\models\train_demand_forecast_model.py:425:            f"MAE={row.mae:.4f}, RMSE={row.rmse:.4f}, "
+  src\models\train_demand_forecast_model.py:426:            f"WAPE={row.wape:.4f}, Bias={row.bias:.4f}, "
+  src\models\train_demand_forecast_model.py:427:            f"Forecast Accuracy={row.forecast_accuracy:.4f}"
+  src\models\train_demand_forecast_model.py:428:        )
+> src\models\train_demand_forecast_model.py:429:    print(f"Saved predictions to: {PREDICTION_PATH}")
+  src\models\train_demand_forecast_model.py:430:    print(f"Saved metrics to: {METRICS_PATH}")
+  src\models\train_demand_forecast_model.py:431:    print(f"Saved feature importance to: {IMPORTANCE_PATH}")
+  src\models\train_demand_forecast_model.py:432:
+  src\models\train_demand_forecast_model.py:433:
+  src\models\train_demand_forecast_model.py:434:if __name__ == "__main__":
+  src\models\train_demand_forecast_model.py:435:    try:
+  src\models\train_demand_forecast_model.py:436:        main()
+  src\models\train_demand_forecast_model.py:437:    except (FileNotFoundError, OSError, ValueError) as error:
+  src\models\train_demand_forecast_model.py:438:        print(f"[ERROR] {error}", file=sys.stderr, flush=True)
+  src\models\train_demand_forecast_model.py:439:        raise SystemExit(1) from error
+
+
+

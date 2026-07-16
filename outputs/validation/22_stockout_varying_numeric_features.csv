@@ -1,0 +1,17 @@
+﻿varying_numeric_feature
+observed_sales_qty
+demand_gap_qty
+sales_censored_flag
+stockout_adjusted_sales
+sales_lag_1w
+sales_lag_4w
+sales_rolling_mean_4w
+sales_rolling_std_4w
+demand_volatility_index
+stockout_adjusted_sales_rolling_mean_4w
+promo_flag
+promo_depth
+promo_days_in_week
+inventory_cover_weeks
+safety_stock_qty
+manual_override_flag

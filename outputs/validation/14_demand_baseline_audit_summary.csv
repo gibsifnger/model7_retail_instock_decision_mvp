@@ -1,0 +1,9 @@
+﻿metric,value
+test_rows,2880.0
+baseline_fallback_rows,0.0
+baseline_fallback_rate,0.0
+baseline_prediction_sum,23183.25
+target_sum,25806.0
+baseline_bias_sum,-2622.75
+baseline_underforecast_rows,1541.0
+baseline_overforecast_rows,1237.0

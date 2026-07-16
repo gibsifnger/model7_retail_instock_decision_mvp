@@ -1,0 +1,7 @@
+﻿source_feature,center_feature,aggregation,model_usage,reason
+observed_sales_qty,center_sales_lag_and_rolling,채널 합산 후 센터 시계열에서 Lag·Rolling 재계산,LAGGED_ONLY,현재 주 실적은 제외하고 과거값만 사용
+demand_gap_qty,center_demand_gap_qty,채널 합산,EXCLUDED_CURRENT_FORM,현재 주 주문·출고 결과이며 판단시점 이후 정보
+stockout_adjusted_sales,center_adjusted_sales_qty,채널 합산,EXCLUDED_CURRENT_FORM,현재 주 정보이며 수요정의도 수정 필요
+available/inbound/open_po,동일 이름 센터 Feature,채널 간 동일성 검증 후 1회 사용,CENTER_LEVEL,센터 공용 재고·공급정보
+promo_flag/promo_depth,promo_any/count/max,채널별 행사를 센터 수준으로 요약,PROVISIONAL,예측대상 주차와 확정시각 재설계 필요
+channel_id,없음,제거,EXCLUDED,결품판단 단위가 SKU×센터×주차

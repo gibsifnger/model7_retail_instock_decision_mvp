@@ -1,0 +1,5 @@
+﻿removed_feature,reason
+observed_sales_qty,현재 주 실현 출고량
+demand_gap_qty,현재 주 주문-출고 차이
+sales_censored_flag,현재 주 부분출고 결과 포함
+stockout_adjusted_sales,현재 주 실현 주문수요

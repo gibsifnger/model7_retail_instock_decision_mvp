@@ -1,0 +1,6 @@
+﻿metric,value
+mean_unseen_minus_known_wape,0.021469136143282625
+std_unseen_minus_known_wape,0.005599895885615358
+mean_cold_start_minus_known_wape,0.26148490140199143
+unseen_beats_baseline_repeat_count,7.0
+repeat_count,10.0

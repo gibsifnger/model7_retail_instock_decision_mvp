@@ -1,0 +1,20 @@
+﻿feature,business_meaning,availability,asof_status
+observed_sales_qty,현재 주 실현 판매,월요일 08시 이후 발생,LEAKAGE
+demand_gap_qty,현재 주 주문-출고 차이,월요일 08시 이후 확정,LEAKAGE
+sales_censored_flag,현재 주 부분출고 또는 결품,부분출고는 월요일 08시 이후 확정,LEAKAGE
+stockout_adjusted_sales,현재 주 주문수요,월요일 08시 이후 발생,LEAKAGE
+sales_lag_1w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+sales_lag_4w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+sales_rolling_mean_4w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+sales_rolling_std_4w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+demand_volatility_index,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+stockout_adjusted_sales_rolling_mean_4w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+stockout_days_last_4w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+in_stock_rate_4w,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+sales_history_weeks,이전 완료 주 판매이력,shift(1) 이상 적용,SAFE
+available_qty,월요일 08시 가용재고,판단시점 Snapshot,SAFE
+inbound_qty_next_1w/2w/4w,판단시점 기준 미래 입고예정,월요일 08시 As-of,SAFE
+promo_flag/promo_depth,현재 주 계획 프로모션,등록·승인시각 없음,CONDITIONAL
+manual_override_flag,승인된 수동 Override,created_at Cutoff 필터 없음,WARNING
+historical_promo_uplift,과거 완료 주 프로모션 성과,shift 적용,SAFE_WITH_DEFINITION_FIX
+vendor_performance,판단시점 이전 완료 PO 성과,월요일 08시 Cutoff 적용,SAFE

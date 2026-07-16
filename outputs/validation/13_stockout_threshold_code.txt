@@ -1,0 +1,243 @@
+﻿
+  src\models\train_stockout_classifier.py:7:import numpy as np
+  src\models\train_stockout_classifier.py:8:import pandas as pd
+  src\models\train_stockout_classifier.py:9:from sklearn.compose import ColumnTransformer
+  src\models\train_stockout_classifier.py:10:from sklearn.ensemble import HistGradientBoostingClassifier
+  src\models\train_stockout_classifier.py:11:from sklearn.impute import SimpleImputer
+  src\models\train_stockout_classifier.py:12:from sklearn.inspection import permutation_importance
+  src\models\train_stockout_classifier.py:13:from sklearn.metrics import (
+  src\models\train_stockout_classifier.py:14:    accuracy_score,
+> src\models\train_stockout_classifier.py:15:    average_precision_score,
+  src\models\train_stockout_classifier.py:16:    confusion_matrix,
+> src\models\train_stockout_classifier.py:17:    f1_score,
+> src\models\train_stockout_classifier.py:18:    precision_score,
+> src\models\train_stockout_classifier.py:19:    recall_score,
+  src\models\train_stockout_classifier.py:20:    roc_auc_score,
+  src\models\train_stockout_classifier.py:21:)
+  src\models\train_stockout_classifier.py:22:from sklearn.pipeline import Pipeline
+  src\models\train_stockout_classifier.py:23:from sklearn.preprocessing import OneHotEncoder
+  src\models\train_stockout_classifier.py:24:
+  src\models\train_stockout_classifier.py:25:
+  src\models\train_stockout_classifier.py:26:matplotlib.use("Agg")
+  src\models\train_stockout_classifier.py:27:import matplotlib.pyplot as plt  # noqa: E402
+  src\models\train_stockout_classifier.py:28:
+  src\models\train_stockout_classifier.py:29:
+  src\models\train_stockout_classifier.py:30:RANDOM_SEED = 42
+  src\models\train_stockout_classifier.py:31:TEST_WEEKS = 8
+> src\models\train_stockout_classifier.py:32:DEFAULT_THRESHOLD = 0.5
+> src\models\train_stockout_classifier.py:33:FINAL_THRESHOLD = 0.4
+  src\models\train_stockout_classifier.py:34:
+  src\models\train_stockout_classifier.py:35:REPO_ROOT = Path(__file__).resolve().parents[2]
+  src\models\train_stockout_classifier.py:36:INPUT_PATH = REPO_ROOT / "data" / "mart" / "final_modeling_table.csv"
+  src\models\train_stockout_classifier.py:37:PREDICTION_PATH = (
+  src\models\train_stockout_classifier.py:38:    REPO_ROOT / "outputs" / "predictions" / "stockout_risk_result.csv"
+  src\models\train_stockout_classifier.py:39:)
+  src\models\train_stockout_classifier.py:40:METRICS_PATH = REPO_ROOT / "outputs" / "metrics" / "stockout_model_metrics.csv"
+  src\models\train_stockout_classifier.py:41:IMPORTANCE_PATH = (
+  src\models\train_stockout_classifier.py:42:    REPO_ROOT / "outputs" / "figures" / "feature_importance_stockout.png"
+  src\models\train_stockout_classifier.py:43:)
+  src\models\train_stockout_classifier.py:44:
+  src\models\train_stockout_classifier.py:45:TARGET_COLUMN = "target_stockout_risk_next_2w"
+  src\models\train_stockout_classifier.py:46:KEY_COLUMNS = ["sku_id", "channel_id", "center_id", "week_start_date"]
+  src\models\train_stockout_classifier.py:47:
+  src\models\train_stockout_classifier.py:48:NUMERIC_FEATURES = [
+  src\models\train_stockout_classifier.py:49:    "observed_sales_qty",
+  src\models\train_stockout_classifier.py:50:    "demand_gap_qty",
+  src\models\train_stockout_classifier.py:51:    "sales_censored_flag",
+  src\models\train_stockout_classifier.py:52:    "stockout_adjusted_sales",
+  src\models\train_stockout_classifier.py:53:    "sales_lag_1w",
+  src\models\train_stockout_classifier.py:54:    "sales_lag_4w",
+  src\models\train_stockout_classifier.py:55:    "sales_rolling_mean_4w",
+  src\models\train_stockout_classifier.py:56:    "sales_rolling_std_4w",
+  src\models\train_stockout_classifier.py:57:    "demand_volatility_index",
+  src\models\train_stockout_classifier.py:58:    "stockout_adjusted_sales_rolling_mean_4w",
+  src\models\train_stockout_classifier.py:244:    ).ravel()
+  src\models\train_stockout_classifier.py:245:
+  src\models\train_stockout_classifier.py:246:    roc_auc = (
+  src\models\train_stockout_classifier.py:247:        float(roc_auc_score(actual, risk_score))
+  src\models\train_stockout_classifier.py:248:        if np.unique(actual).size == 2
+  src\models\train_stockout_classifier.py:249:        else np.nan
+  src\models\train_stockout_classifier.py:250:    )
+  src\models\train_stockout_classifier.py:251:    pr_auc = (
+> src\models\train_stockout_classifier.py:252:        float(average_precision_score(actual, risk_score))
+  src\models\train_stockout_classifier.py:253:        if np.any(actual == 1)
+  src\models\train_stockout_classifier.py:254:        else np.nan
+  src\models\train_stockout_classifier.py:255:    )
+  src\models\train_stockout_classifier.py:256:    return {
+  src\models\train_stockout_classifier.py:257:        "accuracy": float(accuracy_score(actual, predicted_label)),
+> src\models\train_stockout_classifier.py:258:        "precision": float(precision_score(actual, predicted_label, zero_division=0)),
+> src\models\train_stockout_classifier.py:259:        "recall": float(recall_score(actual, predicted_label, zero_division=0)),
+> src\models\train_stockout_classifier.py:260:        "f1": float(f1_score(actual, predicted_label, zero_division=0)),
+  src\models\train_stockout_classifier.py:261:        "roc_auc": roc_auc,
+  src\models\train_stockout_classifier.py:262:        "pr_auc": pr_auc,
+  src\models\train_stockout_classifier.py:263:        "positive_rate_actual": float(actual.mean()),
+  src\models\train_stockout_classifier.py:264:        "positive_rate_pred": float(predicted_label.mean()),
+  src\models\train_stockout_classifier.py:265:        "true_negative": int(true_negative),
+  src\models\train_stockout_classifier.py:266:        "false_positive": int(false_positive),
+  src\models\train_stockout_classifier.py:267:        "false_negative": int(false_negative),
+  src\models\train_stockout_classifier.py:268:        "true_positive": int(true_positive),
+  src\models\train_stockout_classifier.py:269:    }
+  src\models\train_stockout_classifier.py:270:
+  src\models\train_stockout_classifier.py:271:
+  src\models\train_stockout_classifier.py:272:def build_metrics_table(
+  src\models\train_stockout_classifier.py:273:    actual: np.ndarray,
+  src\models\train_stockout_classifier.py:274:    model_probability: np.ndarray,
+  src\models\train_stockout_classifier.py:275:    baseline_prediction: np.ndarray,
+  src\models\train_stockout_classifier.py:276:    train_data: pd.DataFrame,
+  src\models\train_stockout_classifier.py:277:    test_data: pd.DataFrame,
+  src\models\train_stockout_classifier.py:278:) -> pd.DataFrame:
+> src\models\train_stockout_classifier.py:279:    """Compare model thresholds 0.5/0.4 with the fixed rule baseline."""
+  src\models\train_stockout_classifier.py:280:    metadata = {
+  src\models\train_stockout_classifier.py:281:        "split": "time_based_test_last_8_weeks",
+  src\models\train_stockout_classifier.py:282:        "train_rows": len(train_data),
+  src\models\train_stockout_classifier.py:283:        "test_rows": len(test_data),
+  src\models\train_stockout_classifier.py:284:        "train_week_min": train_data["week_start_date"].min().strftime("%Y-%m-%d"),
+  src\models\train_stockout_classifier.py:285:        "train_week_max": train_data["week_start_date"].max().strftime("%Y-%m-%d"),
+  src\models\train_stockout_classifier.py:286:        "test_week_min": test_data["week_start_date"].min().strftime("%Y-%m-%d"),
+  src\models\train_stockout_classifier.py:287:        "test_week_max": test_data["week_start_date"].max().strftime("%Y-%m-%d"),
+  src\models\train_stockout_classifier.py:288:    }
+  src\models\train_stockout_classifier.py:289:    rows: list[dict[str, object]] = []
+> src\models\train_stockout_classifier.py:290:    for threshold in [DEFAULT_THRESHOLD, FINAL_THRESHOLD]:
+> src\models\train_stockout_classifier.py:291:        predicted_label = (model_probability >= threshold).astype(int)
+  src\models\train_stockout_classifier.py:292:        rows.append(
+  src\models\train_stockout_classifier.py:293:            {
+  src\models\train_stockout_classifier.py:294:                "model_name": MODEL_NAME,
+> src\models\train_stockout_classifier.py:295:                "threshold": threshold,
+  src\models\train_stockout_classifier.py:296:                **metadata,
+  src\models\train_stockout_classifier.py:297:                **calculate_classification_metrics(
+  src\models\train_stockout_classifier.py:298:                    actual, predicted_label, model_probability
+  src\models\train_stockout_classifier.py:299:                ),
+  src\models\train_stockout_classifier.py:300:            }
+  src\models\train_stockout_classifier.py:301:        )
+  src\models\train_stockout_classifier.py:302:
+  src\models\train_stockout_classifier.py:303:    rows.append(
+  src\models\train_stockout_classifier.py:304:        {
+  src\models\train_stockout_classifier.py:305:            "model_name": BASELINE_NAME,
+> src\models\train_stockout_classifier.py:306:            "threshold": np.nan,
+  src\models\train_stockout_classifier.py:307:            **metadata,
+  src\models\train_stockout_classifier.py:308:            **calculate_classification_metrics(
+  src\models\train_stockout_classifier.py:309:                actual, baseline_prediction, baseline_prediction
+  src\models\train_stockout_classifier.py:310:            ),
+  src\models\train_stockout_classifier.py:311:        }
+  src\models\train_stockout_classifier.py:312:    )
+  src\models\train_stockout_classifier.py:313:    column_order = [
+  src\models\train_stockout_classifier.py:314:        "model_name",
+  src\models\train_stockout_classifier.py:315:        "split",
+> src\models\train_stockout_classifier.py:316:        "threshold",
+  src\models\train_stockout_classifier.py:317:        "accuracy",
+> src\models\train_stockout_classifier.py:318:        "precision",
+> src\models\train_stockout_classifier.py:319:        "recall",
+> src\models\train_stockout_classifier.py:320:        "f1",
+  src\models\train_stockout_classifier.py:321:        "roc_auc",
+  src\models\train_stockout_classifier.py:322:        "pr_auc",
+  src\models\train_stockout_classifier.py:323:        "positive_rate_actual",
+  src\models\train_stockout_classifier.py:324:        "positive_rate_pred",
+  src\models\train_stockout_classifier.py:325:        "true_negative",
+  src\models\train_stockout_classifier.py:326:        "false_positive",
+  src\models\train_stockout_classifier.py:327:        "false_negative",
+  src\models\train_stockout_classifier.py:328:        "true_positive",
+  src\models\train_stockout_classifier.py:329:        "train_rows",
+  src\models\train_stockout_classifier.py:330:        "test_rows",
+  src\models\train_stockout_classifier.py:331:        "train_week_min",
+  src\models\train_stockout_classifier.py:332:        "train_week_max",
+  src\models\train_stockout_classifier.py:333:        "test_week_min",
+  src\models\train_stockout_classifier.py:334:        "test_week_max",
+  src\models\train_stockout_classifier.py:335:    ]
+  src\models\train_stockout_classifier.py:336:    return pd.DataFrame(rows)[column_order]
+  src\models\train_stockout_classifier.py:337:
+  src\models\train_stockout_classifier.py:338:
+  src\models\train_stockout_classifier.py:339:def build_baseline_prediction(test_data: pd.DataFrame) -> np.ndarray:
+  src\models\train_stockout_classifier.py:340:    """Apply the specified low-cover or recent-stockout baseline rule."""
+  src\models\train_stockout_classifier.py:341:    inventory_cover = pd.to_numeric(
+  src\models\train_stockout_classifier.py:342:        test_data["inventory_cover_weeks"], errors="coerce"
+  src\models\train_stockout_classifier.py:343:    ).fillna(np.inf)
+  src\models\train_stockout_classifier.py:344:    recent_stockout = pd.to_numeric(
+  src\models\train_stockout_classifier.py:345:        test_data["stockout_days_last_4w"], errors="coerce"
+  src\models\train_stockout_classifier.py:393:    test_features: pd.DataFrame,
+  src\models\train_stockout_classifier.py:394:    test_target: pd.Series,
+  src\models\train_stockout_classifier.py:395:) -> None:
+  src\models\train_stockout_classifier.py:396:    """Save a top-20 raw-feature permutation importance plot using PR-AUC."""
+  src\models\train_stockout_classifier.py:397:    importance = permutation_importance(
+  src\models\train_stockout_classifier.py:398:        pipeline,
+  src\models\train_stockout_classifier.py:399:        test_features,
+  src\models\train_stockout_classifier.py:400:        test_target,
+> src\models\train_stockout_classifier.py:401:        scoring="average_precision",
+  src\models\train_stockout_classifier.py:402:        n_repeats=3,
+  src\models\train_stockout_classifier.py:403:        random_state=RANDOM_SEED,
+  src\models\train_stockout_classifier.py:404:        n_jobs=-1,
+  src\models\train_stockout_classifier.py:405:    )
+  src\models\train_stockout_classifier.py:406:    feature_names = NUMERIC_FEATURES + CATEGORICAL_FEATURES
+  src\models\train_stockout_classifier.py:407:    importance_table = pd.DataFrame(
+  src\models\train_stockout_classifier.py:408:        {
+  src\models\train_stockout_classifier.py:409:            "feature": feature_names,
+  src\models\train_stockout_classifier.py:410:            "importance": importance.importances_mean,
+  src\models\train_stockout_classifier.py:411:        }
+  src\models\train_stockout_classifier.py:412:    ).sort_values("importance", ascending=False)
+  src\models\train_stockout_classifier.py:413:    top_features = importance_table.head(20).sort_values("importance")
+  src\models\train_stockout_classifier.py:414:
+  src\models\train_stockout_classifier.py:415:    figure, axis = plt.subplots(figsize=(10, 7))
+  src\models\train_stockout_classifier.py:416:    axis.barh(top_features["feature"], top_features["importance"], color="#e6550d")
+  src\models\train_stockout_classifier.py:417:    axis.set_title("Stockout Risk Feature Importance (Permutation, Top 20)")
+  src\models\train_stockout_classifier.py:418:    axis.set_xlabel("Decrease in PR-AUC after permutation")
+  src\models\train_stockout_classifier.py:419:    axis.set_ylabel("Feature")
+  src\models\train_stockout_classifier.py:420:    axis.grid(axis="x", alpha=0.25)
+  src\models\train_stockout_classifier.py:421:    figure.tight_layout()
+  src\models\train_stockout_classifier.py:422:    figure.savefig(IMPORTANCE_PATH, dpi=150, bbox_inches="tight")
+  src\models\train_stockout_classifier.py:423:    plt.close(figure)
+  src\models\train_stockout_classifier.py:424:
+  src\models\train_stockout_classifier.py:425:
+  src\models\train_stockout_classifier.py:426:def ensure_output_directories() -> None:
+  src\models\train_stockout_classifier.py:457:    train_features = train_data[feature_columns]
+  src\models\train_stockout_classifier.py:458:    train_target = train_data[TARGET_COLUMN]
+  src\models\train_stockout_classifier.py:459:    test_features = test_data[feature_columns]
+  src\models\train_stockout_classifier.py:460:    test_target = test_data[TARGET_COLUMN]
+  src\models\train_stockout_classifier.py:461:
+  src\models\train_stockout_classifier.py:462:    pipeline = build_model_pipeline()
+  src\models\train_stockout_classifier.py:463:    pipeline.fit(train_features, train_target)
+  src\models\train_stockout_classifier.py:464:    model_probability = pipeline.predict_proba(test_features)[:, 1]
+> src\models\train_stockout_classifier.py:465:    model_label = (model_probability >= FINAL_THRESHOLD).astype(int)
+  src\models\train_stockout_classifier.py:466:    baseline_prediction = build_baseline_prediction(test_data)
+  src\models\train_stockout_classifier.py:467:
+  src\models\train_stockout_classifier.py:468:    metrics_table = build_metrics_table(
+  src\models\train_stockout_classifier.py:469:        test_target.to_numpy(),
+  src\models\train_stockout_classifier.py:470:        model_probability,
+  src\models\train_stockout_classifier.py:471:        baseline_prediction,
+  src\models\train_stockout_classifier.py:472:        train_data,
+  src\models\train_stockout_classifier.py:473:        test_data,
+  src\models\train_stockout_classifier.py:474:    )
+  src\models\train_stockout_classifier.py:475:    prediction_output = build_prediction_output(
+  src\models\train_stockout_classifier.py:476:        test_data,
+  src\models\train_stockout_classifier.py:477:        model_probability,
+  src\models\train_stockout_classifier.py:478:        model_label,
+  src\models\train_stockout_classifier.py:479:        baseline_prediction,
+  src\models\train_stockout_classifier.py:480:    )
+  src\models\train_stockout_classifier.py:481:
+  src\models\train_stockout_classifier.py:482:    ensure_output_directories()
+  src\models\train_stockout_classifier.py:483:    prediction_output.to_csv(PREDICTION_PATH, index=False, encoding="utf-8")
+  src\models\train_stockout_classifier.py:484:    metrics_table.to_csv(METRICS_PATH, index=False, encoding="utf-8")
+  src\models\train_stockout_classifier.py:485:    save_feature_importance(pipeline, test_features, test_target)
+  src\models\train_stockout_classifier.py:486:
+  src\models\train_stockout_classifier.py:487:    for row in metrics_table.itertuples(index=False):
+> src\models\train_stockout_classifier.py:488:        threshold_text = "rule" if pd.isna(row.threshold) else f"{row.threshold:.1f}"
+  src\models\train_stockout_classifier.py:489:        print(
+> src\models\train_stockout_classifier.py:490:            f"{row.model_name} (threshold={threshold_text}): "
+> src\models\train_stockout_classifier.py:491:            f"Accuracy={row.accuracy:.4f}, Precision={row.precision:.4f}, "
+> src\models\train_stockout_classifier.py:492:            f"Recall={row.recall:.4f}, F1={row.f1:.4f}, "
+  src\models\train_stockout_classifier.py:493:            f"ROC-AUC={row.roc_auc:.4f}, PR-AUC={row.pr_auc:.4f}, "
+  src\models\train_stockout_classifier.py:494:            f"CM=[[{row.true_negative}, {row.false_positive}], "
+  src\models\train_stockout_classifier.py:495:            f"[{row.false_negative}, {row.true_positive}]]"
+  src\models\train_stockout_classifier.py:496:        )
+  src\models\train_stockout_classifier.py:497:    print(f"Saved predictions to: {PREDICTION_PATH}")
+  src\models\train_stockout_classifier.py:498:    print(f"Saved metrics to: {METRICS_PATH}")
+  src\models\train_stockout_classifier.py:499:    print(f"Saved feature importance to: {IMPORTANCE_PATH}")
+  src\models\train_stockout_classifier.py:500:
+  src\models\train_stockout_classifier.py:501:
+  src\models\train_stockout_classifier.py:502:if __name__ == "__main__":
+  src\models\train_stockout_classifier.py:503:    try:
+  src\models\train_stockout_classifier.py:504:        main()
+  src\models\train_stockout_classifier.py:505:    except (FileNotFoundError, OSError, ValueError) as error:
+  src\models\train_stockout_classifier.py:506:        print(f"[ERROR] {error}", file=sys.stderr, flush=True)
+  src\models\train_stockout_classifier.py:507:        raise SystemExit(1) from error
+
+
+

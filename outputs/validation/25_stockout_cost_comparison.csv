@@ -1,0 +1,7 @@
+﻿missed_stockout_cost_ratio,model_cost,baseline_cost,preferred_method
+1,44,93,MODEL
+3,94,119,MODEL
+5,144,145,MODEL
+6,169,158,BASELINE
+10,269,210,BASELINE
+20,519,340,BASELINE

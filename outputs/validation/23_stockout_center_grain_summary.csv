@@ -1,0 +1,14 @@
+﻿metric,value
+source_channel_rows_all,18720.0
+source_duplicate_row_keys,0.0
+center_event_rows_all,6240.0
+row_to_center_ratio,3.0
+duplicate_center_event_keys,0.0
+events_not_three_channels,0.0
+labeled_center_event_rows,6000.0
+target_disagreement_events,0.0
+positive_center_targets,562.0
+center_sales_lag_1w_null_rows,120.0
+center_sales_lag_4w_null_rows,480.0
+center_rolling_mean_null_rows,120.0
+current_week_realized_features_excluded,4.0

@@ -1,0 +1,9 @@
+﻿sku_id,channel_id,center_id,week_start_date,stockout_adjusted_sales,target_demand_next_1w,future_1_week_start_date,expected_current_demand_target,stockout_flag,future_1_stockout_flag,future_2_stockout_flag,target_stockout_risk_next_2w,expected_stockout_target
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-11-10,2,2.0,2025-11-17,2.0,0,0.0,0.0,0.0,0.0
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-11-17,2,4.0,2025-11-24,4.0,0,0.0,0.0,0.0,0.0
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-11-24,4,5.0,2025-12-01,5.0,0,0.0,0.0,0.0,0.0
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-12-01,5,4.0,2025-12-08,4.0,0,0.0,0.0,0.0,0.0
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-12-08,4,3.0,2025-12-15,3.0,0,0.0,0.0,0.0,0.0
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-12-15,3,2.0,2025-12-22,2.0,0,0.0,0.0,0.0,0.0
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-12-22,2,5.0,2025-12-29,5.0,0,0.0,,,
+SKU0001,GLOBAL_MALL,FC_DONGTAN,2025-12-29,5,,,,0,,,,

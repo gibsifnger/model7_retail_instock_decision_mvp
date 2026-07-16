@@ -1,0 +1,2 @@
+﻿fold_count,mean_selected_threshold,std_selected_threshold,min_selected_threshold,max_selected_threshold,mean_validation_f1,mean_test_f1,std_test_f1,mean_f1_transfer_gap,mean_test_calibration_gap,mean_test_brier_score
+4,0.3625,0.16520189667999177,0.2,0.55,0.6624232243188926,0.552961084493291,0.05207944655381838,-0.10946213982560149,-0.007669638405805526,0.03914735085971201
